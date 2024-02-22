@@ -1,7 +1,47 @@
+const form = document.getElementById("create-visitor-form"); //נייבא את הטופב ונשמור במשתנה
+
 function createNewVisitor(event) {
   // ביטול התנהגות דיפולטיבית של שליחת טופס
   // קראו עוד כאן: https://developer.mozilla.org/en-US/docs/Web/API/Event/preventDefault
   event.preventDefault();
+  const name = event.elements["user-name"];
+  const coins = event.elements["user-coins"];
+  //נוודא שהוזנו ערכים בשדות
+  const validateFormInputs = () => {
+    if (name === "" || coins === "") {
+      console.log("Please enter a valid name and coins amount.");
+      return false;
+    }
+    return true;
+  }
+
+  //מקבל שם ומחזיר אם האורח קיים
+    const visitorExists = (name) => {
+      for (let i = 0; i < visitors.length; i++) {
+        if (visitors[i].name === name) {
+          console.log("user already exists")
+        }
+      }
+    };
+    //מקבל שם, בודק שאין אותו כבר במערך האורחים ומחזיר אובייקט אורח
+    const makeVisitor = (name) => {
+        for (let i = 0; i < visitors.length; i++) {
+          if (visitors[i].name === name) {
+            return visitors[i];
+          }
+        }
+    }
+
+  const user = {
+    name: name.value,
+    coins: coins.value,
+  };
+
+  visitors.push(user);
+  localStorage.setItem("visitors", JSON.stringify(visitors));//שמירה בלוקאל סטורג'
+
+ 
+
 
   /**
   צרו אורח חדש כאן 👇
