@@ -4,25 +4,45 @@ function createNewVisitor(event) {
   // ביטול התנהגות דיפולטיבית של שליחת טופס
   // קראו עוד כאן: https://developer.mozilla.org/en-US/docs/Web/API/Event/preventDefault
   event.preventDefault();
-  const name = event.elements["user-name"];
-  const coins = event.elements["user-coins"];
+  const name = event.target.elements["user-name"].value;
+  const coins = event.target.elements["user-coins"].value;
+  
   //נוודא שהוזנו ערכים בשדות
   const validateFormInputs = () => {
+    const name = document.getElementById("user-name").value;
+    const coins = document.getElementById("user-coins").value;
+  
     if (name === "" || coins === "") {
-      console.log("Please enter a valid name and coins amount.");
+      const errorMessage = document.createElement('div');
+      errorMessage.textContent = "Please enter a valid name and coins amount.";
+      document.body.appendChild(errorMessage);
       return false;
     }
     return true;
   }
 
+  if (!validateFormInputs()) {
+    return; // אם הקלט לא תקין, תפסיק את הריצה של הפונקציה כאן
+  }
+  
   //מקבל שם ומחזיר אם האורח קיים
-    const visitorExists = (name) => {
-      for (let i = 0; i < visitors.length; i++) {
-        if (visitors[i].name === name) {
-          console.log("user already exists")
-        }
+  const visitorExists = (name) => {
+    for (let i = 0; i < visitors.length; i++) {
+      if (visitors[i].name === name) {
+        return true;
       }
-    };
+    }
+    return false;
+  };
+//הודעת שגיאה אם מבקר קיים
+if (visitorExists(name)) {
+  const errorMessage = document.createElement('div');
+  errorMessage.textContent = "User already exists";
+  document.body.appendChild(errorMessage);
+  return; // עצור כאן ואל תמשיך להעביר לדף נוסף
+}
+
+  
     //מקבל שם, בודק שאין אותו כבר במערך האורחים ומחזיר אובייקט אורח
     const makeVisitor = (name) => {
         for (let i = 0; i < visitors.length; i++) {
@@ -39,8 +59,9 @@ function createNewVisitor(event) {
 
   visitors.push(user);
   localStorage.setItem("visitors", JSON.stringify(visitors));//שמירה בלוקאל סטורג'
+  window.location.href="login.html"
 
- 
+ }
 
 
   /**
@@ -62,7 +83,7 @@ function createNewVisitor(event) {
     מקבל שם, בודק שאין אותו כבר במערך האורחים ומחזיר אובייקט אורח
   }
   **/
-}
+
 
 /**************************************
   מימשתי עבורכם את ההאזנה לאירוע שליחת טופס

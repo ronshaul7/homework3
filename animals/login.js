@@ -1,11 +1,23 @@
 const addAnimalForm = document.getElementById("visitors-cards");
 function loginAsVisitor(visitorName) {
-  // תממשו את הלוגיקה של בחירת אורח שנכנס לגן החיות
-  // שמרו את האורח שבחרתם, בלוקל סטורג' כך שבכל העמודים נדע מי האורח הנוכחי
+  
 }
 
 let visitorsForView = [...visitors];
 const dialog = document.querySelector("#visitor-dialog");
+
+function checkForSelectedVisitor() {
+  const selectedVisitor = localStorage.getItem("selectedVisitor");
+  if (selectedVisitor) {
+    const confirmLogout = confirm("You are already logged in as a visitor. Do you want to log out?");
+    if (confirmLogout) {
+      localStorage.removeItem("selectedVisitor");
+      alert("You have been logged out.");
+    }
+  }
+}
+
+
 
 const getVisitorHTMLCard = (visitor) => {
   const template = `
@@ -62,3 +74,4 @@ document.getElementById("query-input").addEventListener("input", (event) => {
 
 document.body.insertAdjacentElement("afterbegin", getSearchBox());
 window.addEventListener("load", renderVisitors);
+window.addEventListener("load", checkForSelectedVisitor);
