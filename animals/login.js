@@ -172,8 +172,9 @@ const getCloseModalHTMLButton = () => {
 
 const handleVisitorClick = (visitor) => {
   dialog.innerHTML = "";
-  dialog.append(getCloseModalHTMLButton(), getVisitorHTMLCard(visitor));
-  dialog.showModal();
+  const visitorNameElement = document.getElementById("visitor-name");
+  visitorNameElement.innerText = visitor.name;
+  window.location.href="zoo.html";//מעביר לדף חיות 
 };
 
 const getSearchBox = () => {
