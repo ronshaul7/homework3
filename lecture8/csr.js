@@ -988,13 +988,10 @@ const handleProductClick = (product) => {
 const getSearchBox = () => {
   const queryInput = document.createElement("input");
   queryInput.id = "query-input";
-  queryInput.placeholder = "Search products";
+  queryInput.placeholder = "Search visitor";
   queryInput.className = "form-control my-4";
   queryInput.oninput = (e) => {
-    productsForView = products.filter((product) =>
-      product.name.includes(e.target.value)
-    );
-    renderProducts();
+    filterVisitorsByName(e.target.value);
   };
   return queryInput;
 };
@@ -1004,12 +1001,12 @@ const getEmptyCardsHTMLTemplate = () => {
   templateWrapper.className = "empty-result";
 
   const template = `
-    <h2>No Products Found</h2>
-    <p>We're sorry, but no products match your search or filter criteria.</p>
+    <h2>No Visitors Found</h2>
+    <p>We're sorry, but no visitors match your search criteria.</p>
     <button id="clear-filter-btn" class="btn btn-dark">Clear search text</button>
     `;
   templateWrapper.innerHTML = template;
-  templateWrapper.children["clear-filter-btn"].addEventListener(
+  templateWrapper.querySelector("#clear-filter-btn").addEventListener(
     "click",
     clearSearchBox
   );
@@ -1019,20 +1016,20 @@ const getEmptyCardsHTMLTemplate = () => {
 const clearSearchBox = () => {
   const input = document.getElementById("query-input");
   input.value = "";
-  productsForView = [...products];
-  renderProducts();
+  visitorsForView = [...visitorsArray];
+  renderVisitors();
 };
 
-const renderProducts = () => {
-  const productCards = productsForView.map(getProductHTMLCard);
-  const productsPlaceholder = document.getElementById("placeholder");
-  productsPlaceholder.innerHTML = "";
+const renderVisitors = () => {
+  const visitorCards = visitorsForView.map(getVisitorHTMLCard);
+  const cardContainer = document.getElementById("card-container");
+  cardContainer.innerHTML = "";
 
-  if (!productCards.length) {
-    productsPlaceholder.appendChild(getEmptyCardsHTMLTemplate());
+  if (!visitorCards.length) {
+    cardContainer.appendChild(getEmptyCardsHTMLTemplate());
   }
-  productsPlaceholder.append(...productCards);
+  cardContainer.append(...visitorCards);
 };
 
 document.body.insertAdjacentElement("afterbegin", getSearchBox());
-window.addEventListener("load", renderProducts);
+window.addEventListener("load", renderVisitors);

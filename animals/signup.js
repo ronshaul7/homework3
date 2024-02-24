@@ -59,7 +59,7 @@ if (visitorExists(name)) {
 
   visitors.push(user);
   localStorage.setItem("visitors", JSON.stringify(visitors));//שמירה בלוקאל סטורג'
-  window.location.href="login.html"
+  window.location.href="login.html";//מעביר לדף מבקרים 
 
  }
 

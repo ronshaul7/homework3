@@ -6,21 +6,7 @@
     border-radius: 5px; /* פינות מעוגלות של המסגרת */
   }
   
-.card {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    min-width: 0;
-    word-wrap: break-word;
-    background-color: #fff;
-    background-clip: border-box;
-    border: 1px solid rgba(0,0,0,.125);
-    border-radius: 0.25rem;
-}
-
-*, ::after, ::before {
-    box-sizing: border-box;
-}
+ 
 
 body {
     margin: 0;
@@ -54,54 +40,61 @@ body {
     flex-wrap: wrap;
   }
   
-  .visitor-card {
-    max-width: 250px;
-    overflow: hidden;
-    background: white;
-    border-radius: 20px;
-    animation: fade-in 0.4s ease-in forwards;
-  }
-  
-  .visitor-card img {
-    width: 100%;
-    max-width: 100%;
-    object-fit: contain;
-    max-height: 180px;
-    margin: 0 auto;
-    max-width: 250px;
-  }
-  
-  .visitor-card p {
-    text-align: center;
-    padding: 2px 6px;
-  }
- 
-  
-  .empty-result {
-    width: 100%;
-    text-align: center;
-    color: white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 90vh;
-  }
-  
   dialog {
     border: 1px solid #000;
     border-radius: 5px;
     padding: 20px;
   }
-  
-  @keyframes fade-in {
-    from {
-      opacity: 0;
-      transform: translate(-10px, 10px);
-    }
-    to {
-      opacity: 1;
-      transform: none;
-    }
+
+  .card {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin: 10px;
+    padding: 10px;
+    width: 200px;
+    display: inline-block;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s;
   }
+  
+  .card:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+  
+  .card img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover; /* שמירה על יחסי תמונה */
+    border-radius: 5px;
+  }  
+  
+  .card-body {
+    text-align: center;
+  }
+  
+  .form-control {
+    margin: 10px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  
+  .all-visitors-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  header {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+  }
+  
+  h1 {
+    margin: 0;
+    font-size: 24px;
+  }
+  
   
