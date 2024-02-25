@@ -1,56 +1,43 @@
-const form = document.getElementById("create-visitor-form"); //נייבא את הטופב ונשמור במשתנה
+const modal = document.getElementById("myModal");
+const span = document.getElementsByClassName("close")[0];
+const errorMessage = document.getElementById("error-message");
+
+// Function to show the modal with error message
+const showModalErrorMessage = (message) => {
+ errorMessage.textContent = message;
+ modal.style.display = "block";
+};
+
+// Event listener for closing the modal
+span.onclick = function() {
+ modal.style.display = "none";
+};
+
+window.onclick = function(event) {
+ if (event.target == modal) {
+   modal.style.display = "none";
+ }
+};
+
+const form = document.getElementById("create-visitor-form");
 
 function createNewVisitor(event) {
-  // ביטול התנהגות דיפולטיבית של שליחת טופס
-  // קראו עוד כאן: https://developer.mozilla.org/en-US/docs/Web/API/Event/preventDefault
-  event.preventDefault();
-  const name = event.target.elements["user-name"].value;
-  const coins = event.target.elements["user-coins"].value;
-  
-  //נוודא שהוזנו ערכים בשדות
-  const validateFormInputs = () => {
-    const name = document.getElementById("user-name").value;
-    const coins = document.getElementById("user-coins").value;
-  
-    if (name === "" || coins === "") {
-      const errorMessage = document.createElement('div');
-      errorMessage.textContent = "Please enter a valid name and coins amount.";
-      document.body.appendChild(errorMessage);
-      return false;
-    }
-    return true;
-  }
+ event.preventDefault();
+ const name = event.target.elements["user-name"].value.trim();
+ const coins = event.target.elements["user-coins"].value;
 
-  if (!validateFormInputs()) {
-    return; // אם הקלט לא תקין, תפסיק את הריצה של הפונקציה כאן
-  }
-  
-  //מקבל שם ומחזיר אם האורח קיים
-  const visitorExists = (name) => {
-    for (let i = 0; i < visitors.length; i++) {
-      if (visitors[i].name === name) {
-        return true;
-      }
-    }
-    return false;
-  };
-//הודעת שגיאה אם מבקר קיים
-if (visitorExists(name)) {
-  const errorMessage = document.createElement('div');
-  errorMessage.textContent = "User already exists";
-  document.body.appendChild(errorMessage);
-  return; // עצור כאן ואל תמשיך להעביר לדף נוסף
-}
+ // Validate form inputs
+ if (name === "") {
+   showModalErrorMessage("Please enter a valid name.");
+   return;
+ }
 
-  
-    //מקבל שם, בודק שאין אותו כבר במערך האורחים ומחזיר אובייקט אורח
-    const makeVisitor = (name) => {
-        for (let i = 0; i < visitors.length; i++) {
-          if (visitors[i].name === name) {
-            return visitors[i];
-          }
-        }
-    }
+ // Check if visitor exists
+ const visitor = visitors.find(visitor => visitor.name === name);
+ if (visitor) {
+   showModalErrorMessage("User already exists");
+   return;
+ }
 
   const user = {
     name: name.value,
